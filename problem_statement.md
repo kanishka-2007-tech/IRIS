@@ -1,6 +1,6 @@
 ## Problem Statement
 
-Urban safety systems today are largely reactive, activating only after a crime or dangerous
+Safety systems today are largely reactive, activating only after a crime or dangerous
 situation has already begun. This approach significantly limits their effectiveness,
 especially in preventing crimes related to women’s safety and vulnerable populations.
 
