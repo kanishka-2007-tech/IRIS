@@ -1,5 +1,5 @@
 ## System Architecture Diagram (Mermaid)
-![system architecture diagram](IRIS\system\architecture.drawio.png)
+![system architecture diagram](IRIS\demo\diagram\architecture.drawio.png)
 ```mermaid
 flowchart TD
     U[User] --> F[Frontend Web / Mobile ]
