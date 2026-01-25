@@ -2,7 +2,7 @@
 ![system architecture diagram](IRIS\system\architecture.drawio.png)
 ```mermaid
 flowchart TD
-    U[User] --> F[Frontend<br/>(Web / Mobile)]
+    U[User] --> F[Frontend (Web / Mobile)]
     F --> B[Backend API<br/>(Flask)]
 
     B --> M[AI Risk Prediction Model]
