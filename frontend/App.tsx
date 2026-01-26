@@ -1,5 +1,5 @@
-simport React, { useState, useEffect, useCallback, useRef } from 'react';
-import { SafetyStatus, Contact, UserProfile, SOSCategory, SOSLog } from './types';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { SafetyStatus, Contact, UserProfile, SOSCategory, SOSLog } from '../types';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import ContactManager from './components/ContactManager';
@@ -8,8 +8,8 @@ import PoliceDashboard from './components/PoliceDashboard';
 import SOSOverlay from './components/SOSOverlay';
 import TechyBackground from './components/TechyBackground';
 import LiveSessionOverlay from './components/LiveSessionOverlay';
-import { MessagingService } from './services/messagingService';
-import { backend } from './services/backendSimulator';
+import { MessagingService } from '../backend/services/messagingService';
+import { backend } from '../backend/backendSimulator';
 import { GoogleGenAI, Modality, LiveServerMessage } from '@google/genai';
 import { Home, Map as MapIcon, Users, Shield, User, Bell, VolumeX, Eye, Mic } from 'lucide-react';
 
@@ -182,9 +182,9 @@ const App: React.FC = () => {
           timestamp: Date.now(),
           category,
           location: currentLocation || { lat: 20.5937, lng: 78.9629 },
-          contactsNotified: contacts.map(c => c.name)
+          contactsNotified: contacts.map((c: Contact) => c.name)
         };
-        setSosLogs(prev => [newLog, ...prev].slice(0, 10));
+        setSosLogs((prev: SOSLog[]) => [newLog, ...prev].slice(0, 10));
       }
     } catch (err) {
       // Suppress SOS debug box completely
@@ -376,7 +376,7 @@ const App: React.FC = () => {
             const inputData = e.inputBuffer.getChannelData(0);
             const int16 = new Int16Array(inputData.length);
             for (let i = 0; i < inputData.length; i++) int16[i] = inputData[i] * 32768;
-            sessionPromise.then(s => s.sendRealtimeInput({ 
+            sessionPromise.then((s: any) => s.sendRealtimeInput({ 
               media: { data: btoa(String.fromCharCode(...new Uint8Array(int16.buffer))), mimeType: 'audio/pcm;rate=16000' } 
             }));
           };
@@ -385,7 +385,7 @@ const App: React.FC = () => {
           setLiveTranscription("IRIS LIVE: How can I protect you today?");
         },
         onmessage: async (message: LiveServerMessage) => {
-          if (message.serverContent?.outputTranscription) setLiveTranscription(prev => prev + " " + message.serverContent!.outputTranscription!.text);
+          if (message.serverContent?.outputTranscription) setLiveTranscription((prev: string) => prev + " " + message.serverContent!.outputTranscription!.text);
           const audioData = message.serverContent?.modelTurn?.parts[0]?.inlineData?.data;
           if (audioData) {
             setIsModelSpeaking(true);
@@ -522,7 +522,7 @@ const App: React.FC = () => {
   );
 };
 
-const NavButton: React.FC<{active: boolean, icon: React.ReactNode, label: string, onClick: () => void}> = ({active, icon, label, onClick}) => (
+const NavButton: React.FC<{active: boolean, icon: React.ReactNode, label: string, onClick: () => void}> = ({active, icon, label, onClick}: {active: boolean, icon: React.ReactNode, label: string, onClick: () => void}) => (
   <button onClick={onClick} className={`flex flex-col items-center justify-center space-y-1.5 transition-all duration-300 ${active ? 'text-rose-600 scale-110' : 'text-slate-400'}`}>
     <div className={`p-1.5 rounded-xl transition-all ${active ? 'bg-rose-50' : 'bg-transparent'}`}>{icon}</div>
     <span className={`text-[9px] font-black uppercase tracking-widest ${active ? 'opacity-100' : 'opacity-60'}`}>{label}</span>
