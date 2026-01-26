@@ -1,0 +1,9 @@
+{
+  "name": "Tech Ventures – Live Safety Map",
+  "description": "A mission-critical women's safety ecosystem for India. Features include 3-second SOS holding, AI-driven crowd radar, real-time family dispatch via SMS/WhatsApp, and automated police routing.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
