@@ -1,5 +1,5 @@
 
-import { Contact, UserProfile, SOSCategory } from '../types';
+import { Contact, UserProfile, SOSCategory } from '../../types';
 
 /**
  * Tech Ventures – Smart Protection Platform
@@ -33,7 +33,7 @@ export const MessagingService = {
     const whatsappUrls = contacts.map(contact => {
       let cleanPhone = contact.phone.replace(/\D/g, '');
       // Force India +91 prefix for the wa.me protocol
-      const fullPhone = cleanPhone.length === 10 ? `91${cleanPhone}` : cleanPhone;
+      const fullPhone = cleanPhone.length === 10 ? `91${cleanPhone}` : (cleanPhone.startsWith('91') ? cleanPhone : `91${cleanPhone}`);
       return {
         name: contact.name,
         url: `https://wa.me/${fullPhone}?text=${encodeURIComponent(messageText)}`
@@ -42,9 +42,11 @@ export const MessagingService = {
 
     // 4. Background Notification Simulation
     const requests = contacts.map(async (contact) => {
-      console.log(`📨 [BACKEND SMS] Pushing encrypted alert to +91${contact.phone}`);
+      const cleanPhone = contact.phone.replace(/\D/g, '');
+      const fullPhone = cleanPhone.length === 10 ? `91${cleanPhone}` : (cleanPhone.startsWith('91') ? cleanPhone : `91${cleanPhone}`);
+      console.log(`📨 [BACKEND SMS] Pushing encrypted alert to +${fullPhone}`);
       if (contact.priority === 1) {
-        console.log(`📞 [VOICE GATEWAY] Queuing SOS Auto-Call for: +91${contact.phone}`);
+        console.log(`📞 [VOICE GATEWAY] Queuing SOS Auto-Call for: +${fullPhone}`);
       }
       return new Promise(r => setTimeout(r, 400));
     });
