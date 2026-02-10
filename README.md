@@ -27,9 +27,7 @@ IRIS spots risks early and lets you respond hands-free in emergencies, making sa
 5. Voice-activated emergency alerts provide hands-free assistance
  ## 🏗 Tech Stack
 - Python
-- Flask
-- Scikit-learn
-- Pandas
+- typescript
 - SpeechRecognition
 - HTML/CSS (Frontend Prototype)
 
